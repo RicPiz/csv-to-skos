@@ -66,9 +66,9 @@ root = ET.Element(f"{{{namespaces['rdf']}}}RDF", nsmap=namespaces)
 
 # Create the ConceptScheme element and add it to the root
 concept_scheme = ET.SubElement(root, f"{{{namespaces['skos']}}}ConceptScheme",
-                               attrib={f"{{{namespaces['rdf']}}}about": "http://projects.ufuture.eu/d4runoff/tematres_d4r/vocab/"})
-ET.SubElement(concept_scheme, f"{{{namespaces['dc']}}}title").text = "D4RUNOFF"
-ET.SubElement(concept_scheme, f"{{{namespaces['dc']}}}creator").text = "KlinK"
+                               attrib={f"{{{namespaces['rdf']}}}about": ""})
+ET.SubElement(concept_scheme, f"{{{namespaces['dc']}}}title").text = "INSERT_HERE"
+ET.SubElement(concept_scheme, f"{{{namespaces['dc']}}}creator").text = "INSERT_HERE"
 ET.SubElement(concept_scheme, f"{{{namespaces['dc']}}}contributor")
 ET.SubElement(concept_scheme, f"{{{namespaces['dc']}}}publisher")
 ET.SubElement(concept_scheme, f"{{{namespaces['dc']}}}rights")
@@ -96,7 +96,7 @@ elements = {}
 for i, row in df.iterrows():
     # Create a new Concept element
     concept = ET.Element(f"{{{namespaces['skos']}}}Concept",
-                         attrib={f"{{{namespaces['rdf']}}}about": f"http://projects.ufuture.eu/d4runoff/tematres_d4r/vocab/xml.php?skosTema={int(row['ID'])}"})
+                         attrib={f"{{{namespaces['rdf']}}}about": f"={int(row['ID'])}"})
 
     # Add the prefLabel, definition, note, inScheme, created, and exactMatch elements
     if pd.notna(row['Term']):
@@ -105,7 +105,7 @@ for i, row in df.iterrows():
         ET.SubElement(concept, f"{{{namespaces['skos']}}}definition", attrib={f"{{{namespaces['xml']}}}lang": "en-EN"}).text = row['Definition']
     if pd.notna(row['BibNote']):
         ET.SubElement(concept, f"{{{namespaces['skos']}}}note", attrib={f"{{{namespaces['xml']}}}lang": "en-EN"}).text = row['BibNote']
-    ET.SubElement(concept, f"{{{namespaces['skos']}}}inScheme", attrib={f"{{{namespaces['rdf']}}}resource": "http://projects.ufuture.eu/d4runoff/tematres_d4r/vocab/"})
+    ET.SubElement(concept, f"{{{namespaces['skos']}}}inScheme", attrib={f"{{{namespaces['rdf']}}}resource": "INSERT_HERE"})
     ET.SubElement(concept, f"{{{namespaces['dct']}}}created").text = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     if pd.notna(row['SourceIRI']):
         exact_match = ET.SubElement(concept, f"{{{namespaces['skos']}}}exactMatch")
@@ -132,14 +132,14 @@ for rel_type, ids in relations.items():
         for target in targets:
             if rel_type == "RT":
                 ET.SubElement(elements[id], f"{{{namespaces['skos']}}}related",
-                               attrib={f"{{{namespaces['rdf']}}}resource": f"http://projects.ufuture.eu/d4runoff/tematres_d4r/vocab/xml.php?skosTema={target}"})
+                               attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={target}"})
                 ET.SubElement(elements[target], f"{{{namespaces['skos']}}}related",
-                               attrib={f"{{{namespaces['rdf']}}}resource": f"http://projects.ufuture.eu/d4runoff/tematres_d4r/vocab/xml.php?skosTema={id}"})
+                               attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={id}"})
             elif rel_type == "BT":
                 ET.SubElement(elements[id], f"{{{namespaces['skos']}}}broader",
-                               attrib={f"{{{namespaces['rdf']}}}resource": f"http://projects.ufuture.eu/d4runoff/tematres_d4r/vocab/xml.php?skosTema={target}"})
+                               attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={target}"})
                 ET.SubElement(elements[target], f"{{{namespaces['skos']}}}narrower",
-                               attrib={f"{{{namespaces['rdf']}}}resource": f"http://projects.ufuture.eu/d4runoff/tematres_d4r/vocab/xml.php?skosTema={id}"})
+                               attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={id}"})
 
 
 # In[29]:
@@ -163,4 +163,3 @@ xml_str = ET.tostring(root, pretty_print=True, encoding="unicode")
 # Write the XML string to a file
 with open('output.rdf', 'w') as f:
     f.write(xml_str)
-
