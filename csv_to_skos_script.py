@@ -140,6 +140,11 @@ for rel_type, ids in relations.items():
                                attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={target}"})
                 ET.SubElement(elements[target], f"{{{namespaces['skos']}}}narrower",
                                attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={id}"})
+            elif rel_type == "NT":
+                ET.SubElement(elements[id], f"{{{namespaces['skos']}}}narrower",
+                               attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={target}"})
+                ET.SubElement(elements[target], f"{{{namespaces['skos']}}}broader",
+                               attrib={f"{{{namespaces['rdf']}}}resource": f"INSERT_HERE={id}"})
 
 
 # In[29]:
