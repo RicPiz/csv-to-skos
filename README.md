@@ -6,7 +6,7 @@ They require a csv file of this form as input:
 
 |ID     |Term     |Definition     |BibNote     |SourceIRI     |RelType     |Target     |
 |-------|---------|---------------|------------|--------------|------------|-----------|
-|Term ID|Term Name|Definition text|BibNote text|IRI           |BT/RT       |Target name|
+|Term ID|Term Name|Definition text|BibNote text|IRI/URI       |BT/NT/RT    |Target name|
 
 Before use, edit the fields related to your folder structure for your instance of TemaTres. 
 
